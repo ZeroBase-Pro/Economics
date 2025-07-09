@@ -15,7 +15,7 @@ contract ZeroBaseScript is Script {
         vm.startBroadcast(privateKey);
 
         // Deploy
-        ZEROBASE zeroBase = new ZEROBASE(LAYERZERO_ENDPOINT, vm.addr(privateKey));
+        ZEROBASE zeroBase = new ZEROBASE(LAYERZERO_ENDPOINT, vm.addr(privateKey), vm.addr(privateKey));
         console2.log("ZEROBASE deployed at:", address(zeroBase));
 
         vm.stopBroadcast();
