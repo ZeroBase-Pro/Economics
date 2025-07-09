@@ -1,0 +1,31 @@
+{
+  "_format": "hh-sol-artifact-1",
+  "contractName": "ExecutorOptions",
+  "sourceName": "contracts/libs/ExecutorOptions.sol",
+  "abi": [
+    {
+      "inputs": [],
+      "name": "Executor_InvalidLzComposeOption",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "Executor_InvalidLzReadOption",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "Executor_InvalidLzReceiveOption",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "Executor_InvalidNativeDropOption",
+      "type": "error"
+    }
+  ],
+  "bytecode": "0x60566037600b82828239805160001a607314602a57634e487b7160e01b600052600060045260246000fd5b30600052607381538281f3fe73000000000000000000000000000000000000000030146080604052600080fdfea2646970667358221220750290388c4f22f9db6e18203c93a7e0b06fced3651487a6dc3a56abf963afc864736f6c63430008160033",
+  "deployedBytecode": "0x73000000000000000000000000000000000000000030146080604052600080fdfea2646970667358221220750290388c4f22f9db6e18203c93a7e0b06fced3651487a6dc3a56abf963afc864736f6c63430008160033",
+  "linkReferences": {},
+  "deployedLinkReferences": {}
+}
