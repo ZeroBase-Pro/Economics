@@ -8,8 +8,9 @@ contract ZEROBASE is OFT {
     uint256 public constant INITIAL_SUPPLY = 1000000000 * 10 ** 18;
     constructor(
         address _lzEndpoint,
-        address _owner
+        address _owner,
+        address _receiver
     ) OFT("ZEROBASE", "ZB", _lzEndpoint, _owner) Ownable(_owner) {
-        _mint(_owner, INITIAL_SUPPLY);
+        _mint(_receiver, INITIAL_SUPPLY);
     }
 }
