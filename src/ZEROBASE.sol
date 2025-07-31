@@ -10,7 +10,7 @@ contract ZEROBASE is OFT {
         address _lzEndpoint,
         address _owner,
         address _receiver
-    ) OFT("ZEROBASE", "ZB", _lzEndpoint, _owner) Ownable(_owner) {
+    ) OFT("ZEROBASE Token", "ZBT", _lzEndpoint, _owner) Ownable(_owner) {
         _mint(_receiver, INITIAL_SUPPLY);
     }
 }
