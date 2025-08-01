@@ -1,66 +1,13 @@
-## Foundry
+# ZEROBASE Economic Model Optimization
 
-**Foundry is a blazing fast, portable and modular toolkit for Ethereum application development written in Rust.**
+## Introduction
 
-Foundry consists of:
+This document outlines the key strategies for optimizing the ZEROBASE economic model. The approach includes visual enhancements, mathematical modeling, and economic model improvements to ensure sustainable growth and efficiency.
 
--   **Forge**: Ethereum testing framework (like Truffle, Hardhat and DappTools).
--   **Cast**: Swiss army knife for interacting with EVM smart contracts, sending transactions and getting chain data.
--   **Anvil**: Local Ethereum node, akin to Ganache, Hardhat Network.
--   **Chisel**: Fast, utilitarian, and verbose solidity REPL.
+## Visual Enhancements 
 
-## Documentation
+### **Token Release Curve**
+The token release curve illustrates the supply increase over time. Using a sigmoid (S-curve) release function instead of a linear release can help reduce early inflation pressure while accelerating release in later stages before stabilizing. This approach balances early incentives with long-term supply management.
 
-https://book.getfoundry.sh/
-
-## Usage
-
-### Build
-
-```shell
-$ forge build
-```
-
-### Test
-
-```shell
-$ forge test
-```
-
-### Format
-
-```shell
-$ forge fmt
-```
-
-### Gas Snapshots
-
-```shell
-$ forge snapshot
-```
-
-### Anvil
-
-```shell
-$ anvil
-```
-
-### Deploy
-
-```shell
-$ forge script script/Counter.s.sol:CounterScript --rpc-url <your_rpc_url> --private-key <your_private_key>
-```
-
-### Cast
-
-```shell
-$ cast <subcommand>
-```
-
-### Help
-
-```shell
-$ forge --help
-$ anvil --help
-$ cast --help
-```
+### **Inflation Rate Prediction**
+Using token release plans and burn mechanisms, we can predict future circulating supply and inflation rates. Inflation rates are expected to decrease over time as token release slows. This visualization helps monitor inflation levels and adjust policies like buybacks and burns accordingly.
