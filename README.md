@@ -1,4 +1,4 @@
-# ZEROBASE Economic Model Optimization
+# ZEROBASE Economic Model
 
 ## Introduction
 
