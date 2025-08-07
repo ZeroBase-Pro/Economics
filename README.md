@@ -11,3 +11,5 @@ The token release curve illustrates the supply increase over time. Using a sigmo
 
 ### **Inflation Rate Prediction**
 Using token release plans and burn mechanisms, we can predict future circulating supply and inflation rates. Inflation rates are expected to decrease over time as token release slows. This visualization helps monitor inflation levels and adjust policies like buybacks and burns accordingly.
+
+### **[Prediction Model](https://hackmd.io/ttn_i5h9TbqcpKhqiHtELw?view#/6)**
