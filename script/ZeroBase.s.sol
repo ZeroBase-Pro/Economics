@@ -6,8 +6,7 @@ import {console2} from "../lib/forge-std/src/console2.sol";
 import {ZEROBASE} from "../src/ZeroBase.sol";
  
 contract ZeroBaseScript is Script {
-    // address constant LAYERZERO_ENDPOINT = 0x6EDCE65403992e310A62460808c4b910D972f10f;
-    address constant LAYERZERO_ENDPOINT = 0x1a44076050125825900e736c501f859c50fE728c; //use this when deploy to arb/bsc mainnet
+    address constant LAYERZERO_ENDPOINT = 0x6EDCE65403992e310A62460808c4b910D972f10f;
 
     function run() public {
         // Setup
