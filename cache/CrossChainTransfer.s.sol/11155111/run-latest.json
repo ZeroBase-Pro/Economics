@@ -1,7 +1,0 @@
-{
-  "transactions": [
-    {
-      "rpc": "https://eth-sepolia.api.onfinality.io/public"
-    }
-  ]
-}
