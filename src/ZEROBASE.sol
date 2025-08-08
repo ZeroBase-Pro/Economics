@@ -1,11 +1,13 @@
-// SPDX-License-Identifier: UNLICENSED
+// SPDX-License-Identifier: MIT
 pragma solidity 0.8.28;
  
 import {Ownable} from "@openzeppelin/contracts/access/Ownable.sol";
-import {OFT} from "@layerzerolabs/lz-evm-oapp-v2/contracts/oft/OFT.sol";
- 
+import { OFT } from "@layerzerolabs/oft-evm/contracts/OFT.sol";
+
+
+/// @custom:security-contact steam@zerobase.pro
 contract ZEROBASE is OFT {
-    uint256 public constant INITIAL_SUPPLY = 1000000000 * 10 ** 18;
+    uint256 public constant INITIAL_SUPPLY = 1_000_000_000 * 10 ** 18;
     constructor(
         address _lzEndpoint,
         address _owner,
