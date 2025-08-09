@@ -10,8 +10,8 @@ contract SetTrustedRemoteScript is Script {
     address BSC_CONTRACT = vm.envAddress('BSC_CONTRACT_MAIN');
     
     // LayerZero Chain IDs
-    uint32 constant ARB_CHAIN_ID = 30110; // ETH Sepolia
-    uint32 constant BSC_CHAIN_ID = 30102; // BSC Testnet
+    uint32 constant ARB_CHAIN_ID = 30110; // Arbitrum
+    uint32 constant BSC_CHAIN_ID = 30102; // BSC
 
     function run() public {
         uint256 privateKey = vm.envUint("PRIVATE_KEY_MAIN");
