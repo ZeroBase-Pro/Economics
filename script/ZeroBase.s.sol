@@ -10,7 +10,6 @@ contract ZeroBaseScript is Script {
 
     function run() public {
         // Setup
-        // uint256 privateKey = vm.envUint("PRIVATE_KEY");
         uint256 privateKey = vm.envUint("PRIVATE_KEY_MAIN");
         vm.startBroadcast(privateKey);
 
