@@ -9,7 +9,7 @@ import { OptionsBuilder } from "@layerzerolabs/oapp-evm/contracts/oapp/libs/Opti
  
 contract CrossChainTransferScript is Script {
     using OptionsBuilder for bytes;
-    address ARB_CONTRACT = vm.envAddress('ARB_CONTRACT_MAIN'); // BSC 上的合约地址
+    address ARB_CONTRACT = vm.envAddress('ARB_CONTRACT_MAIN');
     
     // LayerZero Chain IDs
     uint32 constant BSC_CHAIN_ID = 30102; // bsc
