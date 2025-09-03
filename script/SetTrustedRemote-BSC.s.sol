@@ -6,8 +6,8 @@ import {console2} from "../lib/forge-std/src/console2.sol";
 import {ZEROBASE} from "../src/ZeroBase.sol";
  
 contract SetTrustedRemoteScript is Script {
-    address ETH_CONTRACT = vm.envAddress('ETH_CONTRACT'); // 替换为ETH Sepolia上的合约地址
-    address BSC_CONTRACT = vm.envAddress('BSC_CONTRACT'); // 替换为BSC测试网上的合约地址
+    address ETH_CONTRACT = vm.envAddress('ETH_CONTRACT');
+    address BSC_CONTRACT = vm.envAddress('BSC_CONTRACT');
     
     // LayerZero Chain IDs
     uint32 constant ETH_CHAIN_ID = 40161; // ETH Sepolia
