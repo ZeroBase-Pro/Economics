@@ -8,7 +8,7 @@ contract A{}
 
 contract ZEROBASETest is Test {
     ZEROBASE token;
-    address lzEndpoint = 0x6EDCE65403992e310A62460808c4b910D972f10f; // Mock endpoint
+    address lzEndpoint = 0x6EDCE65403992e310A62460808c4b910D972f10f;
     address owner = address(0x2222);
     address receiver = address(0x3333);
 

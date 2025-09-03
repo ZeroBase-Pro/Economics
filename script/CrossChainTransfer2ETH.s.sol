@@ -1,34 +1,33 @@
-// SPDX-License-Identifier: UNLICENSED
+// SPDX-License-Identifier: MIT
 pragma solidity ^0.8.22;
  
 import {Script} from "../lib/forge-std/src/Script.sol";
 import {console2} from "../lib/forge-std/src/console2.sol";
-import "../src/ZeroBase.sol";
-import {SendParam, MessagingFee, OFTReceipt} from "../node_modules/@layerzerolabs/lz-evm-oapp-v2/contracts/oft/interfaces/IOFT.sol";
-import {MessagingReceipt} from "../node_modules/@layerzerolabs/lz-evm-protocol-v2/contracts/interfaces/ILayerZeroEndpointV2.sol";
-import { OptionsBuilder } from "../node_modules/@layerzerolabs/lz-evm-oapp-v2/contracts/oapp/libs/OptionsBuilder.sol";
+import {ZEROBASE} from "../src/ZeroBase.sol";
+import {SendParam, MessagingFee} from "@layerzerolabs/oft-evm/contracts/interfaces/IOFT.sol";
+import { OptionsBuilder } from "@layerzerolabs/oapp-evm/contracts/oapp/libs/OptionsBuilder.sol";
  
 contract CrossChainTransferScript is Script {
     using OptionsBuilder for bytes;
-    address constant ETH_CONTRACT = 0xb733E5fF6361770771DcfE58491713661Ac11bb3; // ETH Sepolia上的合约地址
+    address BSC_CONTRACT = vm.envAddress('BSC_CONTRACT'); // BSC 上的合约地址
     
     // LayerZero Chain IDs
-    uint32 constant BSC_CHAIN_ID = 40102; // BSC Testnet
+    uint32 constant ETH_CHAIN_ID = 40161; // sepolia
     
-    address constant TARGET_ADDRESS = 0x2b2E23ceC9921288f63F60A839E2B28235bc22ad;
+    address TARGET_ADDRESS = vm.envAddress('ADDRESS');
 
     function run() public {
         uint256 privateKey = vm.envUint("PRIVATE_KEY");
         vm.startBroadcast(privateKey);
 
-        ZEROBASE ethContract = ZEROBASE(ETH_CONTRACT);
+        ZEROBASE ethContract = ZEROBASE(BSC_CONTRACT);
         
-        uint256 amount = 100 * 1e18; // 100 ZB
+        uint256 amount = 800 * 1e18; // 800 ZB
 
         bytes memory extraOptions = OptionsBuilder.newOptions().addExecutorLzReceiveOption(200_000, 0);
 
         SendParam memory sendParam = SendParam({
-            dstEid: BSC_CHAIN_ID,
+            dstEid: ETH_CHAIN_ID,
             to: bytes32(uint256(uint160(TARGET_ADDRESS))),
             amountLD: amount,
             minAmountLD: amount * 95 / 100,
@@ -53,4 +52,3 @@ contract CrossChainTransferScript is Script {
         vm.stopBroadcast();
     }
 }
-//forge script script/CrossChainTransfer.s.sol:CrossChainTransferScript --rpc-url https://eth-sepolia.api.onfinality.io/public --broadcast

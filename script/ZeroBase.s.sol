@@ -7,11 +7,10 @@ import {ZEROBASE} from "../src/ZeroBase.sol";
  
 contract ZeroBaseScript is Script {
     address constant LAYERZERO_ENDPOINT = 0x6EDCE65403992e310A62460808c4b910D972f10f;
-    // address constant LAYERZERO_ENDPOINT = 0x6EDCE65403992e310A62460808c4b910D972f10f;
 
     function run() public {
         // Setup
-        uint256 privateKey = vm.envUint("PRIVATE_KEY");
+        uint256 privateKey = vm.envUint("PRIVATE_KEY_MAIN");
         vm.startBroadcast(privateKey);
 
         // Deploy
