@@ -10,6 +10,7 @@ import { OFT } from "@layerzerolabs/oft-evm/contracts/OFT.sol";
 /// @dev Inherits from LayerZero's OFT contract and OpenZeppelin's Ownable contract
 /// @custom:security-contact steam@zerobase.pro
 contract ZEROBASE is OFT {
+    /// @notice The initial total supply of the token: 1,000,000,000 tokens with 18 decimals
     uint256 public constant INITIAL_SUPPLY = 1_000_000_000 * 10 ** 18;
 
     /// @notice Constructor that initializes the ZEROBASE token
