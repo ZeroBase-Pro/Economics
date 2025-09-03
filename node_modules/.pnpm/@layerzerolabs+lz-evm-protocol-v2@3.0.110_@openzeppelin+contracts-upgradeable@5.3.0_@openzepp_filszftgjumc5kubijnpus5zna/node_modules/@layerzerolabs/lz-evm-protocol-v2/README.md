@@ -1,1 +1,0 @@
-# @layerzerolabs/lz-evm-protocol-v2
