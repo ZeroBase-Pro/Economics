@@ -9,10 +9,10 @@ import { OptionsBuilder } from "@layerzerolabs/oapp-evm/contracts/oapp/libs/Opti
  
 contract CrossChainTransferScript is Script {
     using OptionsBuilder for bytes;
-    address BSC_CONTRACT = vm.envAddress('BSC_CONTRACT'); // BSC 上的合约地址
+    address BSC_CONTRACT = vm.envAddress('BSC_CONTRACT_MAIN'); // BSC
     
     // LayerZero Chain IDs
-    uint32 constant ETH_CHAIN_ID = 40161; // sepolia
+    uint32 constant BASE_CHAIN_ID = 30184; // base
     
     address TARGET_ADDRESS = vm.envAddress('ADDRESS');
 
@@ -27,7 +27,7 @@ contract CrossChainTransferScript is Script {
         bytes memory extraOptions = OptionsBuilder.newOptions().addExecutorLzReceiveOption(200_000, 0);
 
         SendParam memory sendParam = SendParam({
-            dstEid: ETH_CHAIN_ID,
+            dstEid: BASE_CHAIN_ID,
             to: bytes32(uint256(uint160(TARGET_ADDRESS))),
             amountLD: amount,
             minAmountLD: amount * 95 / 100,

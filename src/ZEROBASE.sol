@@ -4,25 +4,93 @@ pragma solidity 0.8.28;
 import {Ownable} from "@openzeppelin/contracts/access/Ownable.sol";
 import { OFT } from "@layerzerolabs/oft-evm/contracts/OFT.sol";
 
+ 
 
 /// @title ZEROBASE Token Contract
 /// @notice This contract implements a LayerZero-compatible cross-chain OFT token named "ZEROBASE Token" (ZBT)
 /// @dev Inherits from LayerZero's OFT contract and OpenZeppelin's Ownable contract
 /// @custom:security-contact steam@zerobase.pro
 contract ZEROBASE is OFT {
-    /// @notice The initial total supply of the token: 1,000,000,000 tokens with 18 decimals
-    uint256 public constant INITIAL_SUPPLY = 1_000_000_000 * 10 ** 18;
+    /// @notice The initial total supply of the token: 1,000,000,000 tokens with 18 decimals(BSC)
+
+    uint256 public immutable SUPPLY_CAP;
+    address public constant LZ_POINT = 0x1a44076050125825900e736c501f859c50fE728c;
+    address public constant MULTISIG = address(0xffff);
+
+    mapping(address => bool) public isWhitelisted;
+    mapping(address => bool) public isMinter;
+
+    bool public paused = false;
+
+    event WhitelistUpdated(address indexed _address, bool _value);
+    event MinterUpdated(address indexed _address, bool _value);
+    event PauseUpdated(bool _value);
 
     /// @notice Constructor that initializes the ZEROBASE token
     /// @dev Mints the initial supply to the receiver and sets up LayerZero endpoint and owner
-    /// @param _lzEndpoint The address of the LayerZero endpoint contract on the current chain
     /// @param _owner The address that will be set as the owner of the contract
-    /// @param _receiver The address that will receive the initial supply of the tokens
+
     constructor(
-        address _lzEndpoint,
-        address _owner,
-        address _receiver
-    ) OFT("ZEROBASE Token", "ZBT", _lzEndpoint, _owner) Ownable(_owner) {
-        _mint(_receiver, INITIAL_SUPPLY);
+        address _owner
+    ) OFT("ZEROBASE", "ZBT", LZ_POINT, _owner) Ownable(_owner) {
+        isWhitelisted[_owner] = true;
+        isMinter[_owner] = true;
+        uint8 id;
+
+        assembly {
+            id := chainid()
+        }
+
+        if(id == 56){
+            SUPPLY_CAP = 1_000_000_000 * 10 ** 18;
+            _mint(_owner, SUPPLY_CAP * 90 / 100);
+        }
     }
+
+    function _update(address from, address to, uint256 value) internal override {
+        if(paused){
+            if (from == address(0)) require(isMinter[msg.sender]);
+            else if (to == address(0)) revert();
+            else require(isWhitelisted[msg.sender]);
+        }
+        super._update(from, to, value);
+    }
+
+    /// @notice Sets whether an address is whitelisted or not
+    /// @dev Only callable by the multisig of the contract
+    /// @param _address The address to set the whitelisted status for
+    function setWhitelisted(address _address) external {
+        require(msg.sender == MULTISIG);
+        bool value = !isWhitelisted[_address];
+        isWhitelisted[_address] = value;
+
+        emit WhitelistUpdated(_address, value);
+    }
+
+    /// @notice Sets whether an address is a minter or not
+    /// @dev Only callable by the owner of the contract
+    /// @param _address The address to set the minter status for
+    function setMinter(address _address) external onlyOwner {
+        bool value = !isMinter[_address];
+        isMinter[_address] = value;
+
+        emit MinterUpdated(_address, value);
+    }
+
+    /// @notice Sets whether the contract is paused or not
+    /// @dev Only callable by the multisig of the contract]
+    function pause() external {
+        require(msg.sender == MULTISIG);
+        bool value = !paused;
+        paused = value;
+
+        emit PauseUpdated(value);
+    }
+
+    function mint(address _to, uint256 _amount) external {
+        require(totalSupply() + _amount <= SUPPLY_CAP);
+        require(isMinter[msg.sender]);
+        _mint(_to, _amount);
+    }
+
 }

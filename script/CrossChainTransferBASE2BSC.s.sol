@@ -9,20 +9,20 @@ import { OptionsBuilder } from "@layerzerolabs/oapp-evm/contracts/oapp/libs/Opti
  
 contract CrossChainTransferScript is Script {
     using OptionsBuilder for bytes;
-    address ARB_CONTRACT = vm.envAddress('ARB_CONTRACT_MAIN');
+    address BASE_CONTRACT = vm.envAddress('BASE_CONTRACT_MAIN'); // BASE 上的合约地址
     
     // LayerZero Chain IDs
     uint32 constant BSC_CHAIN_ID = 30102; // bsc
     
-    address TARGET_ADDRESS = vm.envAddress('ADDRESS_MAIN');
+    address TARGET_ADDRESS = vm.envAddress('ADDRESS');
 
     function run() public {
-        uint256 privateKey = vm.envUint("PRIVATE_KEY_MAIN");
+        uint256 privateKey = vm.envUint("PRIVATE_KEY");
         vm.startBroadcast(privateKey);
 
-        ZEROBASE ethContract = ZEROBASE(ARB_CONTRACT);
+        ZEROBASE ethContract = ZEROBASE(BASE_CONTRACT);
         
-        uint256 amount = 100 * 1e18; // 100 ZB
+        uint256 amount = 400 * 1e18; // 800 ZB
 
         bytes memory extraOptions = OptionsBuilder.newOptions().addExecutorLzReceiveOption(200_000, 0);
 

@@ -1,15 +1,15 @@
 {
+  "lib/LayerZero-v2": {
+    "rev": "63bbd31584c588844de33678bf8dd61d879cba14"
+  },
+  "lib/devtools": {
+    "rev": "c4d81871629e1ab0afedd605e3c46d94b27e8883"
+  },
   "lib/openzeppelin-contracts": {
     "tag": {
       "name": "v5.4.0",
       "rev": "c64a1edb67b6e3f4a15cca8909c9482ad33a02b0"
     }
-  },
-  "lib/devtools": {
-    "rev": "c4d81871629e1ab0afedd605e3c46d94b27e8883"
-  },
-  "lib/LayerZero-v2": {
-    "rev": "63bbd31584c588844de33678bf8dd61d879cba14"
   },
   "lib/solidity-bytes-utils": {
     "rev": "fc502455bb2a7e26a743378df042612dd50d1eb9"
