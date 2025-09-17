@@ -13,7 +13,7 @@ contract ZEROBASETest is Test {
 
     function setUp() public {
         vm.createSelectFork(vm.envString("BSC_RPC_URL_MAIN"));
-        token = new ZEROBASE(owner);
+        token = new ZEROBASE(owner, block.timestamp + 1);
     }
 
     function testNameAndSymbol() public view {
@@ -62,7 +62,7 @@ contract ZEROBASETest is Test {
 
     function testAddAddress() public {
         vm.prank(token.MULTISIG());
-        token.pause();
+        token.setTransferAllowedTime(block.timestamp + 1000);
         vm.startPrank(address(0x4444));
         vm.expectRevert();
         token.mint(address(0x4444), 1000 ether);
@@ -86,7 +86,7 @@ contract ZEROBASETest is Test {
 
     function testTransferPaused() public {
         vm.prank(token.MULTISIG());
-        token.pause();
+        token.setTransferAllowedTime(block.timestamp + 1000);
         vm.startPrank(owner);
         token.mint(owner, 1000 ether);
         token.mint(address(0x3333), 1000 ether);
@@ -102,7 +102,7 @@ contract ZEROBASETest is Test {
         vm.stopPrank();
 
         vm.prank(token.MULTISIG());
-        token.pause();
+        token.setTransferAllowedTime(0);
         vm.startPrank(address(0x3333));
         token.transfer(address(0x4444), 1000 ether);
         assertEq(token.balanceOf(address(0x4444)), 2000 ether);
@@ -111,7 +111,7 @@ contract ZEROBASETest is Test {
 
     function testMintWhenPaused() public {
         vm.prank(token.MULTISIG());
-        token.pause();
+        token.setTransferAllowedTime(block.timestamp + 1000);
         vm.prank(owner);
         token.setMinter(address(0x4444));
         vm.prank(address(0x4444));
