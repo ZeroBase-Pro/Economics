@@ -16,26 +16,28 @@ contract ZEROBASE is OFT {
     uint256 public immutable SUPPLY_CAP;
     address public constant LZ_POINT = 0x1a44076050125825900e736c501f859c50fE728c;
     address public constant MULTISIG = address(0xffff);
+    uint256 public supplyAllChains;
+    uint public transferAllowedTime;
+    uint public ETA;
 
     mapping(address => bool) public isWhitelisted;
     mapping(address => bool) public isMinter;
 
-    bool public paused = false;
-
     event WhitelistUpdated(address indexed _address, bool _value);
     event MinterUpdated(address indexed _address, bool _value);
-    event PauseUpdated(bool _value);
+    event TransferAllowedTimeUpdated(uint _new);
 
     /// @notice Constructor that initializes the ZEROBASE token
     /// @dev Mints the initial supply to the receiver and sets up LayerZero endpoint and owner
     /// @param _owner The address that will be set as the owner of the contract
 
     constructor(
-        address _owner
+        address _owner,
+        uint _newTimestamp
     ) OFT("ZEROBASE", "ZBT", LZ_POINT, _owner) Ownable(_owner) {
         isWhitelisted[_owner] = true;
         isMinter[_owner] = true;
-        uint8 id;
+        uint256 id;
 
         assembly {
             id := chainid()
@@ -43,12 +45,16 @@ contract ZEROBASE is OFT {
 
         if(id == 56){
             SUPPLY_CAP = 1_000_000_000 * 10 ** 18;
-            _mint(_owner, SUPPLY_CAP * 90 / 100);
+            uint mintAmount = SUPPLY_CAP * 90 / 100;
+            _mint(_owner, mintAmount);
+            supplyAllChains += mintAmount;
         }
+
+        transferAllowedTime = _newTimestamp;
     }
 
     function _update(address from, address to, uint256 value) internal override {
-        if(paused){
+        if(block.timestamp < transferAllowedTime){
             if (from == address(0)) require(isMinter[msg.sender]);
             else if (to == address(0)) revert();
             else require(isWhitelisted[msg.sender]);
@@ -77,20 +83,26 @@ contract ZEROBASE is OFT {
         emit MinterUpdated(_address, value);
     }
 
-    /// @notice Sets whether the contract is paused or not
+    /// @notice Sets the transferAllowedTime
     /// @dev Only callable by the multisig of the contract]
-    function pause() external {
-        require(msg.sender == MULTISIG);
-        bool value = !paused;
-        paused = value;
-
-        emit PauseUpdated(value);
+    function setTransferAllowedTime(uint newTimestamp) external {
+        require( msg.sender == MULTISIG);
+        if (transferAllowedTime > block.timestamp && ETA == 0) {
+            transferAllowedTime = newTimestamp;
+        } else {
+        if (ETA == 0) {
+            ETA = transferAllowedTime + 1 days;
+        }
+        require(newTimestamp <= ETA);
+        transferAllowedTime = newTimestamp;
+    }
+        emit TransferAllowedTimeUpdated(newTimestamp);
     }
 
     function mint(address _to, uint256 _amount) external {
-        require(totalSupply() + _amount <= SUPPLY_CAP);
+        require(supplyAllChains + _amount <= SUPPLY_CAP);
         require(isMinter[msg.sender]);
         _mint(_to, _amount);
+        supplyAllChains += _amount;
     }
-
 }
