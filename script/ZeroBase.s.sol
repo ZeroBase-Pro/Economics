@@ -7,8 +7,7 @@ import {ZEROBASE} from "../src/ZeroBase.sol";
 import {Factory} from "../src/Factory.sol";
  
 contract ZeroBaseScript is Script {
-    // address constant LAYERZERO_ENDPOINT = 0x1a44076050125825900e736c501f859c50fE728c;//ETH
-    address constant LAYERZERO_ENDPOINT = 0x1a44076050125825900e736c501f859c50fE728c;//BSC
+    address constant LAYERZERO_ENDPOINT = 0x1a44076050125825900e736c501f859c50fE728c;
     address owner;
     Factory fac;
 

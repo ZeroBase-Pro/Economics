@@ -22,7 +22,7 @@ contract CrossChainTransferScript is Script {
 
         ZEROBASE ethContract = ZEROBASE(ETH_CONTRACT);
         
-        uint256 amount = 800 * 1e18; // 800 ZB
+        uint256 amount = 800 * 1e18; // 800 ZBT
 
         bytes memory extraOptions = OptionsBuilder.newOptions().addExecutorLzReceiveOption(200_000, 0);
 

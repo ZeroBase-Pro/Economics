@@ -28,4 +28,3 @@ contract SetTrustedRemoteScript is Script {
         vm.stopBroadcast();
     }
 }
-//forge script script/SetTrustedRemote-BSC-ETHBASE.s.sol:SetTrustedRemoteScript --rpc-url $BSC_RPC_URL_MAIN --broadcast

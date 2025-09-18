@@ -9,7 +9,7 @@ import { OptionsBuilder } from "@layerzerolabs/oapp-evm/contracts/oapp/libs/Opti
  
 contract CrossChainTransferScript is Script {
     using OptionsBuilder for bytes;
-    address BASE_CONTRACT = vm.envAddress('BASE_CONTRACT_MAIN'); // BASE 上的合约地址
+    address BASE_CONTRACT = vm.envAddress('BASE_CONTRACT_MAIN'); // BASE
     
     // LayerZero Chain IDs
     uint32 constant ETH_CHAIN_ID = 30101; // ETH
@@ -22,7 +22,7 @@ contract CrossChainTransferScript is Script {
 
         ZEROBASE ethContract = ZEROBASE(BASE_CONTRACT);
         
-        uint256 amount = 400 * 1e18; // 800 ZB
+        uint256 amount = 400 * 1e18; // 800 ZBT
 
         bytes memory extraOptions = OptionsBuilder.newOptions().addExecutorLzReceiveOption(200_000, 0);
 

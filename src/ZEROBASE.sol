@@ -57,7 +57,7 @@ contract ZEROBASE is OFT {
         if(block.timestamp < transferAllowedTime){
             if (from == address(0)) require(isMinter[msg.sender]);
             else if (to == address(0)) revert();
-            else require(isWhitelisted[msg.sender]);
+            else require(isWhitelisted[msg.sender], "paused and not whitelisted");
         }
         super._update(from, to, value);
     }

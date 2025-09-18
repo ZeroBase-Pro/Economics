@@ -12,7 +12,7 @@ contract CrossChainTransferScript is Script {
     address BSC_CONTRACT = vm.envAddress('BSC_CONTRACT_MAIN'); // BSC
     
     // LayerZero Chain IDs
-    uint32 constant BASE_CHAIN_ID = 30184; // base
+    uint32 constant BASE_CHAIN_ID = 30184; // BASE
     
     address TARGET_ADDRESS = vm.envAddress('ADDRESS');
 
@@ -22,7 +22,7 @@ contract CrossChainTransferScript is Script {
 
         ZEROBASE ethContract = ZEROBASE(BSC_CONTRACT);
         
-        uint256 amount = 800 * 1e18; // 800 ZB
+        uint256 amount = 800 * 1e18; // 800 ZBT
 
         bytes memory extraOptions = OptionsBuilder.newOptions().addExecutorLzReceiveOption(200_000, 0);
 
